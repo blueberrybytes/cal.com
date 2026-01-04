@@ -4,48 +4,61 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 210 60% 98%; /* #F8FAFC */
+    --foreground: 214 32% 15%; /* #1E293B */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 214 32% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --popover-foreground: 214 32% 15%;
+    --primary: 234 82% 60%; /* #4361EE */
+    --primary-foreground: 214 100% 98%;
+    --secondary: 0 100% 71%; /* #FF6B6B */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 40% 92%; /* #E2E8F0 */
+    --muted-foreground: 215 20% 46%; /* #64748B */
+    --accent: 32 92% 52%; /* #F59E0B amber */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 83% 59%; /* #EF4444 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 25% 90%; /* #E2E8F0 */
+    --input: 210 25% 90%;
+    --ring: 234 82% 60%;
     --radius: 0.5rem;
+    --neutral-100: 210 40% 95%; /* #F1F5F9 */
+    --neutral-200: 210 27% 91%; /* #E2E8F0 */
+    --neutral-300: 209 23% 82%; /* #CBD5E1 */
+    --neutral-400: 211 19% 65%; /* #94A3B8 */
+    --neutral-500: 213 18% 50%; /* #64748B */
+    --neutral-600: 215 27% 36%; /* #475569 */
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --background: 215 27% 12%; /* deep blue-gray */
+    --foreground: 210 40% 96%;
+    --card: 215 27% 15%;
+    --card-foreground: 210 40% 96%;
+    --popover: 215 27% 15%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 234 82% 70%;
+    --primary-foreground: 214 32% 12%;
+    --secondary: 0 80% 70%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 215 27% 22%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 32 92% 60%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 83% 65%;
+    --destructive-foreground: 0 0% 10%;
+    --border: 215 27% 26%;
+    --input: 215 27% 26%;
+    --ring: 234 82% 70%;
+  }
+
+  body {
+    font-family: "Inter", "Space Grotesk", "Plus Jakarta Sans", -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 
   input:focus {

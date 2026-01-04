@@ -962,10 +962,22 @@ export const getOptions = ({
       }
       if (account?.provider) {
         const idP: IdentityProvider = mapIdentityProvider(account.provider);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore-error TODO validate email_verified key on profile
+        if (!profile) {
+          log.error(
+            "callbacks:signin profile missing for oauth provider",
+            safeStringify({ provider: account.provider })
+          );
+          return "/auth/error?error=invalid-profile";
+        }
+        const oauthProfile = profile as {
+          email_verified?: boolean;
+          emailVerified?: boolean;
+        };
         user.email_verified =
-          user.email_verified || !!user.emailVerified || profile.email_verified;
+          user.email_verified ||
+          !!user.emailVerified ||
+          !!oauthProfile.emailVerified ||
+          !!oauthProfile.email_verified;
 
         if (!user.email_verified) {
           log.error(
