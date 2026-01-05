@@ -37,9 +37,15 @@ async function handler(req: NextRequest) {
 
   try {
     const fontResults = await Promise.allSettled([
-      fetch(new URL("/fonts/cal.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
-      fetch(new URL("/fonts/Inter-Regular.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
-      fetch(new URL("/fonts/Inter-Medium.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
+      fetch(new URL("/fonts/cal.ttf", WEBAPP_URL)).then((res) =>
+        res.arrayBuffer()
+      ),
+      fetch(new URL("/fonts/Inter-Regular.ttf", WEBAPP_URL)).then((res) =>
+        res.arrayBuffer()
+      ),
+      fetch(new URL("/fonts/Inter-Medium.ttf", WEBAPP_URL)).then((res) =>
+        res.arrayBuffer()
+      ),
     ]);
 
     const fonts: SatoriOptions["fonts"] = [];
@@ -66,14 +72,15 @@ async function handler(req: NextRequest) {
     switch (imageType) {
       case "meeting": {
         try {
-          const { names, usernames, title, meetingProfileName, meetingImage } = meetingSchema.parse({
-            names: searchParams.getAll("names"),
-            usernames: searchParams.getAll("usernames"),
-            title: searchParams.get("title"),
-            meetingProfileName: searchParams.get("meetingProfileName"),
-            meetingImage: searchParams.get("meetingImage"),
-            imageType,
-          });
+          const { names, usernames, title, meetingProfileName, meetingImage } =
+            meetingSchema.parse({
+              names: searchParams.getAll("names"),
+              usernames: searchParams.getAll("usernames"),
+              title: searchParams.get("title"),
+              meetingProfileName: searchParams.get("meetingProfileName"),
+              meetingImage: searchParams.get("meetingImage"),
+              imageType,
+            });
 
           const etag = await getOGImageVersion("meeting");
           const img = new ImageResponse(
@@ -81,7 +88,10 @@ async function handler(req: NextRequest) {
               <Meeting
                 title={title}
                 profile={{ name: meetingProfileName, image: meetingImage }}
-                users={names.map((name, index) => ({ name, username: usernames[index] }))}
+                users={names.map((name, index) => ({
+                  name,
+                  username: usernames[index],
+                }))}
               />
             ),
             ogConfig
@@ -124,13 +134,23 @@ async function handler(req: NextRequest) {
           });
 
           // Get SVG hash for the app
-          const svgHashesModule = await import("@calcom/web/public/app-store/svg-hashes.json");
+          const svgHashesModule = await import(
+            "../../../../../public/app-store/svg-hashes.json"
+          );
           const SVG_HASHES = svgHashesModule.default ?? {};
-          const svgHash = SVG_HASHES[slug] ?? undefined;
+          const svgHash =
+            (SVG_HASHES as Record<string, string>)[slug] ?? undefined;
 
           const etag = await getOGImageVersion("app", { svgHash });
           const img = new ImageResponse(
-            <App name={name} description={description} slug={slug} logoUrl={logoUrl} />,
+            (
+              <App
+                name={name}
+                description={description}
+                slug={slug}
+                logoUrl={logoUrl}
+              />
+            ),
             ogConfig
           );
 
@@ -169,7 +189,10 @@ async function handler(req: NextRequest) {
           });
 
           const etag = await getOGImageVersion("generic");
-          const img = new ImageResponse(<Generic title={title} description={description} />, ogConfig);
+          const img = new ImageResponse(
+            <Generic title={title} description={description} />,
+            ogConfig
+          );
 
           return new Response(img.body, {
             status: 200,
