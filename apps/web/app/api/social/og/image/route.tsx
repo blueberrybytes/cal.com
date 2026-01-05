@@ -134,12 +134,14 @@ async function handler(req: NextRequest) {
           });
 
           // Get SVG hash for the app
-          const svgHashesModule = await import(
-            "../../../../../public/app-store/svg-hashes.json"
+          const svgHashesResponse = await fetch(
+            new URL("/app-store/svg-hashes.json", WEBAPP_URL)
           );
-          const SVG_HASHES = svgHashesModule.default ?? {};
-          const svgHash =
-            (SVG_HASHES as Record<string, string>)[slug] ?? undefined;
+          const SVG_HASHES = (await svgHashesResponse.json()) as Record<
+            string,
+            string
+          >;
+          const svgHash = SVG_HASHES[slug] ?? undefined;
 
           const etag = await getOGImageVersion("app", { svgHash });
           const img = new ImageResponse(
