@@ -3,10 +3,13 @@ import { WEBAPP_URL } from "@calcom/lib/constants";
 import RawHtml from "./RawHtml";
 import Row from "./Row";
 
-const CommentIE = ({ html = "" }) => <RawHtml html={`<!--[if mso | IE]>${html}<![endif]-->`} />;
+const CommentIE = ({ html = "" }) => (
+  <RawHtml html={`<!--[if mso | IE]>${html}<![endif]-->`} />
+);
 
 const EmailBodyLogo = () => {
   const image = `${WEBAPP_URL}/emails/logo.png`;
+  const logoSize = 48;
 
   return (
     <>
@@ -21,7 +24,8 @@ const EmailBodyLogo = () => {
               fontSize: "0px",
               padding: "0px",
               textAlign: "center",
-            }}>
+            }}
+          >
             <CommentIE
               html={`<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;" >`}
             />
@@ -34,7 +38,8 @@ const EmailBodyLogo = () => {
                 display: "inline-block",
                 verticalAlign: "top",
                 width: "100%",
-              }}>
+              }}
+            >
               <Row border="0" style={{ verticalAlign: "top" }} width="100%">
                 <td
                   align="center"
@@ -43,23 +48,27 @@ const EmailBodyLogo = () => {
                     padding: "10px 25px",
                     paddingTop: "32px",
                     wordBreak: "break-word",
-                  }}>
-                  <Row border="0" style={{ borderCollapse: "collapse", borderSpacing: "0px" }}>
-                    <td style={{ width: "89px" }}>
+                  }}
+                >
+                  <Row
+                    border="0"
+                    style={{ borderCollapse: "collapse", borderSpacing: "0px" }}
+                  >
+                    <td style={{ width: `${logoSize}px` }}>
                       <a href={WEBAPP_URL} target="_blank" rel="noreferrer">
                         <img
-                          height="19"
+                          height={logoSize}
                           src={image}
                           style={{
                             border: "0",
                             display: "block",
                             outline: "none",
                             textDecoration: "none",
-                            height: "19px",
-                            width: "100%",
+                            height: `${logoSize}px`,
+                            width: `${logoSize}px`,
                             fontSize: "13px",
                           }}
-                          width="89"
+                          width={logoSize}
                           alt=""
                         />
                       </a>
