@@ -1,5 +1,7 @@
 import classNames from "classnames";
 
+import { APP_NAME, COMPANY_NAME } from "@calcom/lib/constants";
+
 import { Logo } from "@calcom/ui/components/logo";
 
 import Loader from "@components/Loader";
@@ -44,8 +46,8 @@ export default function AuthContainer(props: React.PropsWithChildren<Props>) {
         </div>
         <div className="text-default mt-8 border-t border-subtle pt-8 text-center text-xs">
           <p className="mb-2">
-            &copy; {new Date().getFullYear()} BLUEBERRYBYTES SERVICES FZCO. All
-            rights reserved.
+            &copy; {new Date().getFullYear()} {COMPANY_NAME}. All rights
+            reserved.
           </p>
           <div className="flex justify-center space-x-4">
             <a href="/privacy" className="text-subtle hover:text-default">
