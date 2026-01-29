@@ -110,3 +110,5 @@ packages/**/.yarn/ci-cache/
 .trigger
 
 google.json
+
+.cursor
