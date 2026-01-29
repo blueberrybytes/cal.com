@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { validJson } from "@calcom/lib/jsonUtils";
+
 import getParsedAppKeysFromSlug from "../../_utils/getParsedAppKeysFromSlug";
 
 const googleAppKeysSchema = z.object({
@@ -9,5 +11,16 @@ const googleAppKeysSchema = z.object({
 });
 
 export const getGoogleAppKeys = async () => {
-  return getParsedAppKeysFromSlug("google-calendar", googleAppKeysSchema);
+  try {
+    return await getParsedAppKeysFromSlug("google-calendar", googleAppKeysSchema);
+  } catch (error) {
+    const rawGoogleCredentials = process.env.GOOGLE_API_CREDENTIALS;
+    if (rawGoogleCredentials) {
+      const credentials = validJson(rawGoogleCredentials);
+      if (credentials && credentials.web) {
+        return googleAppKeysSchema.parse(credentials.web);
+      }
+    }
+    throw error;
+  }
 };
