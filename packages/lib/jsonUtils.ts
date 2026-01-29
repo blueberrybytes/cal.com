@@ -5,7 +5,7 @@ export const validJson = (jsonString: string) => {
       return o;
     }
   } catch (e) {
-    console.log("Invalid JSON:", e);
+    console.log(`Invalid JSON: ${jsonString}`, e);
   }
   return false;
 };
