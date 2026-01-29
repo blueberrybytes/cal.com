@@ -7,7 +7,16 @@ export const GOOGLE_API_CREDENTIALS =
         rawGoogleCredentials.trim(),
         "base64"
       ).toString("utf-8");
-      return JSON.parse(maybeDecoded), maybeDecoded;
+      // Validate it's JSON but return the string for the next step to parse if needed,
+      // OR better: Just return the string if it looks like JSON.
+      // The original code was: return JSON.parse(maybeDecoded), maybeDecoded;
+      // This returned maybeDecoded (string).
+      // But line 18 does JSON.parse(GOOGLE_API_CREDENTIALS).
+      // So returning the string is CORRECT for the logic at line 18.
+      // wait. JSON.parse(maybeDecoded) throws if invalid.
+      // So this serves as a validation step.
+      JSON.parse(maybeDecoded);
+      return maybeDecoded;
     } catch {
       return rawGoogleCredentials;
     }

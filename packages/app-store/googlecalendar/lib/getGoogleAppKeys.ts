@@ -16,7 +16,20 @@ export const getGoogleAppKeys = async () => {
   } catch (error) {
     const rawGoogleCredentials = process.env.GOOGLE_API_CREDENTIALS;
     if (rawGoogleCredentials) {
-      const credentials = validJson(rawGoogleCredentials);
+      let credentialsString = rawGoogleCredentials;
+      try {
+        // Try decoding base64 if it looks like it
+        // A simple check is difficult, so we check if standard JSON parse fails?
+        // But validJson handles parse.
+        // Let's assume if it is not starting with '{', it's base64
+        if (!rawGoogleCredentials.trim().startsWith("{")) {
+          credentialsString = Buffer.from(rawGoogleCredentials.trim(), "base64").toString("utf-8");
+        }
+      } catch (e) {
+        // ignore decoding errors
+      }
+
+      const credentials = validJson(credentialsString);
       if (credentials && credentials.web) {
         return googleAppKeysSchema.parse(credentials.web);
       }
