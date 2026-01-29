@@ -18,7 +18,7 @@ export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
     const requestId = request.headers["X-Request-Id"] ?? "unknown-request-id";
     response.setHeader("X-Request-Id", requestId.toString());
     const userContext = extractUserContext(request);
-    this.logger.error(`Http Exception Filter: ${exception?.message}`, {
+    const logData = {
       exception,
       body: request.body,
       headers: filterReqHeaders(request.headers),
@@ -26,7 +26,13 @@ export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
       method: request.method,
       requestId,
       ...userContext,
-    });
+    };
+
+    if (statusCode === 404) {
+      this.logger.warn(`Http Exception Filter: ${exception?.message}`, logData);
+    } else {
+      this.logger.error(`Http Exception Filter: ${exception?.message}`, logData);
+    }
 
     response.status(statusCode).json({
       status: ERROR_STATUS,
