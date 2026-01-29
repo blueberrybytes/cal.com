@@ -127,7 +127,17 @@ export const getServerSideProps: GetServerSideProps<UserPageProps> = async (cont
 
   const isThereAnyNonOrgUser = usersInOrgContext.some(isNonOrgUser);
 
+  console.log("SSP DEBUG:", {
+    usernameList,
+    usersFound: usersInOrgContext.length,
+    isValidOrgDomain,
+    currentOrgDomain,
+    isThereAnyNonOrgUser,
+    firstUserOrg: usersInOrgContext[0]?.profile?.organization
+  });
+
   if (!usersInOrgContext.length || (!isValidOrgDomain && !isThereAnyNonOrgUser)) {
+    console.log("SSP RETURNING 404");
     return {
       notFound: true,
     } as const;
