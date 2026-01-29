@@ -137,6 +137,7 @@ const shouldEnforceCsp = (url: URL) => {
 };
 
 const proxy = async (req: NextRequest): Promise<NextResponse<unknown>> => {
+  console.log("MIDDLEWARE HIT:", req.nextUrl.pathname);
   const requestorIp = getIP(req);
   try {
     await checkRateLimitAndThrowError({
